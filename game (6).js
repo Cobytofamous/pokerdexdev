@@ -89,7 +89,7 @@ function displayCard(card) {
     const suit = card.suit.toLowerCase();
     const imageName = `${rank}_of_${suit}.png`;
 
-    return `<img src="https://apramay.github.io/pokerdexdev/cards/${imageName}" 
+    return `<img src="https://cobytofamous.github.io/pokerdexdev/cards/${imageName}" 
             alt="${rank} of ${suit}" 
             onerror="this.onerror=null; this.src='./cards/default.png';">`;
 }
@@ -139,7 +139,7 @@ function updateUI(tableId) {
         if (index === (gameState.dealerIndex + 2) % gameState.players.length && player.tokens > 0) blindIndicator = "BB ";
             let displayedHand = player.name === gameState.players[gameState.currentPlayerIndex].name
         ? displayHand(player.hand)
-            : `<div class="card"><img src="https://apramay.github.io/pokerdexdev/cards/back.jpg" 
+            : `<div class="card"><img src="https://cobytofamous.github.io/pokerdexdev/cards/back.jpg" 
     alt="Card Back" style="width: 100px; height: auto;"></div>`;
         playerDiv.innerHTML = `
          
