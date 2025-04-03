@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>pokerdex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>pokerdex</h1>
+<div id="game-info-panel">
+    <div id="table-info">
+        <p>Small Blind: <span id="small-blind-display">__</span></p>
+        <p>Big Blind: <span id="big-blind-display">__</span></p>
+    </div>
+    <div id="conversion-rate">
+        <p>1 SOL = <span id="sol-to-token-display">__</span> <span class="token-name">PokerBucks</span></p>
+    </div>
+    <div id="table-id-display">
+        <p>Table ID: <span id="table-id">______</span></p>
+    </div>
+    <div id="game-type-display">
+    <p>Game Type: <span id="game-type">______</span></p>
+</div>
+</div>
+    <div id="player-input">
+        <input type="text" id="player-name-input" placeholder="Enter player name">
+        <button id="add-player-btn">Add Player</button>
+        <button id="start-game-btn">Start Game</button>
+        <button id="cashout-btn">Leave Table</button>
+<p id="cashout-info"></p>
+       <button id="connect-wallet-btn">Connect Phantom Wallet</button>
+<p>Wallet Address: <span id="wallet-address">Not connected</span></p>
+<p>Balance: <span id="wallet-balance">0 SOL</span></p>
+
+
+<input type="number" id="sol-amount-input" step="0.000001" min="0.000001" placeholder="Enter SOL amount">
+
+        <div id="reveal-options"></div>
+<div id="hand-history"></div>
+
+        
+        
+    </div>
+    <div id="action-history-container">
+    <h3>Last 5 Actions</h3>
+    <ul id="action-history"></ul>
+</div>
+
+<div id="show-hide-buttons" style="display: none; text-align: center; margin-top: 10px;">
+    <button id="show-cards-btn">Show Cards</button>
+    <button id="hide-cards-btn">Hide Cards</button>
+</div>
+
+
+    <div id="game-container">
+        <div id="table">
+            <div id="community-cards"></div>
+            <div id="pot"></div>
+            <div id="round"></div>
+            <div id="currentBet"></div>
+        <div id="players"></div>
+        <div id="message"></div>
+       <div id="action-buttons">
+    <button id="fold-btn">Fold</button>
+    <button id="check-btn">Check</button>  <button id="call-btn">Call</button>
+    <input type="number" id="bet-input" placeholder="Bet Amount">
+    <button id="raise-btn">Raise</button>
+</div>
+<div id="add-tokens-controls">
+    <input type="number" id="add-tokens-input" placeholder="Tokens to Add">
+    <button id="add-tokens-btn">Add Tokens</button>
+</div>            
+    </div>
+<script type="module" src="buffer.js"></script>
+
+        <script src="https://unpkg.com/@solana/web3.js@1.73.2/lib/index.iife.js"></script>
+
+    
+<script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const tableId = urlParams.get("table");
+            if (!tableId) {
+                alert("No table ID found! Returning to homepage.");
+                window.location.href = "/";
+            }
+            // Store the table ID globally
+            sessionStorage.setItem("tableId", tableId);
+            // Fetch table settings from the server
+            async function loadTableSettings() {
+                try {
+const response = await fetch(`https://pokerdexdev-server.onrender.com/getTableSettings?tableId=${tableId}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to load table settings');
+                    }
+                    const settings = await response.json();
+                    // Use the settings to update the game UI or state
+                    document.getElementById('small-blind-display').textContent = settings.smallBlindAmount;
+                    document.getElementById('big-blind-display').textContent = settings.bigBlindAmount;
+                    document.getElementById('sol-to-token-display').textContent = settings.solToToken;
+                    document.getElementById('table-id').textContent = tableId;
+                    // ... any other UI updates
+                } catch (error) {
+                    console.error('Error loading table settings:', error);
+                    alert('Failed to load table settings. Returning to homepage.');
+                    window.location.href = "/"; // Or handle the error as you see fit
+                }
+            }
+            loadTableSettings();
+</script>
+
+<script src="game.js"></script>
+</body>
+</html>
