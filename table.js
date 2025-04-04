@@ -40,7 +40,7 @@ const response = await fetch('https://pokerdexdev-server.onrender.com/registerTa
 function joinTable() {
     const tableId = prompt("Enter the table ID:");
     if (tableId) {
-        window.location.href = `${window.location.origin}/pokerdexdev/game.html?table=${tableId}`;
+        window.location.href = `${window.location.origin}/game.html?table=${tableId}`;
     }
 }
 
