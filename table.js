@@ -28,7 +28,7 @@ const response = await fetch('https://pokerdexdev-server.onrender.com/registerTa
         }
 
         // Table created successfully, generate the game URL
-        const tableUrl = `${window.location.origin}/pokerdexdev/game.html?table=${tableId}`;;
+        const tableUrl = `${window.location.origin}/game.html?table=${tableId}`;;
         document.getElementById('tableUrl').value = tableUrl;
         document.getElementById('tableLink').style.display = 'block';
     } catch (error) {
